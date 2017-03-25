@@ -4,6 +4,8 @@
 
 if (document.getElementsByClassName("panelGeneral").length > 0){
 
+    mostrarFechaHora();
+
     document.getElementById('compraLote').onclick = function (){ 
 
        window.open("paneles/compralote.html", 'Nueva compra de lote', 'scrollbars=no,width=600,height=820,toolbar=yes');
@@ -449,6 +451,33 @@ if (document.getElementsByClassName('ventanaAuxiliar').length > 0) {
         }
     }
 }
+
+//FECHA Y HORA ACTUALIZADA
+    function mostrarFechaHora(){
+
+        var hoy = new Date();
+        var hora = hoy.getHours();
+        var minutos = hoy.getMinutes();
+        var segundos = hoy.getSeconds();
+        var dia = hoy.getDate();
+        var mes = hoy.getMonth();
+        var ano = hoy.getFullYear();
+
+
+        if (minutos < 10) {
+            minutos = '0' + minutos;
+        }
+
+        if (segundos <10) {
+            segundos = '0' + segundos;
+        }
+        
+        document.getElementsByClassName('hora')[0].innerHTML = hora + ':' + minutos + ':' + segundos;
+        var segundero = setTimeout(mostrarFechaHora, 500);
+
+        document.getElementsByClassName('fecha')[0].innerHTML = dia + '/' + mes + '/' + ano;
+
+    }
 
 
 // ACTUALIZACIÓN DE STOCK
