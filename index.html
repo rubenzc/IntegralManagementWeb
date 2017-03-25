@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Yummy Backery | Gestión</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body class="panelGeneral" id="panelGeneral">
+
+	<header>
+		<h1>Sistema integrado de gestión</h1>
+		<img src="img/logo.png" alt="Logo">
+		<div class="reloj">
+			<div class="fecha" name="fecha">01/01/1999</div><br>
+			<div class="hora" name="hora">01:22:20</div>
+		</div>
+		
+	</header>
+
+	<section class="botonesPanel">
+		<button id="compraLote">Nueva compra de tartas</button>
+		<button id="venderTarta">Registrar venta</button>
+		<button id="destruirGenero">Registrar destrucción</button>
+		<button id="importarDemo">Importar contenido demo</button>
+		<button id="informeVisual">Informe visual</button>
+		<button id="precioVenta">Calcular precio de venta</button>
+		<button id="listarStock">Ver informe de stock</button>
+		<button id="crearContabilidad">Crear contabilidad</button>
+		<button id="verSaldo">Ver Saldo</button>
+		<button id="verCuentas">Ver informe contable</button>
+	</section>
+
+	<footer>
+		<div>Lotes en almacén: <span id="lotesTotales">0</span> (<span id="tartasTotales">0</span> tartas)</div>		
+	</footer>
+
+	<script src="js/scripts.js"></script>	
+	<script src="js/almacen.js"></script>	
+</body>
+</html>

@@ -1,0 +1,99 @@
+<html lang="es">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Registro de nueva compra de tartas</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+	</head>
+
+       <body class="ventanaAuxiliar" id="compralote">
+		<form action="gestordedatos.php" method="POST" onsubmit="return validarFormularioCompra();">
+			<fieldset>
+				<legend>Nueva compra de tartas</legend>
+				<br/>
+
+				<label>Identificador de lote
+					<input type="text" id="lote" placeholder="0000XX">
+				</label>
+				<br/><br/>
+
+				<label>Tipo
+					<select id="tipo">
+						<option>Seleccionar</option>
+						<option>Hojaldre</option>
+						<option>Sacher</option>
+						<option>Crocanti</option>
+						<option>Queso</option>
+					</select>
+				</label>
+				<br/><br/>
+
+				<label>Clase
+					<select id="clase">
+						<option>Seleccionar</option>
+						<option>Individual</option>
+						<option>Familiar</option>
+						<option>Multipiso (2 pisos)</option>
+						<option>Multipiso (3 pisos)</option>
+						<option>Temática</option>
+					</select>
+				</label>
+				<br/><br/>
+
+				<label>Modelo
+					<input type="text" id="modelo" placeholder="Choco fiesta">
+				</label>
+				<br/><br/>
+
+				<label>Fecha de caducidad
+					<input type="text" id="fecha" placeholder="11/12/2017">
+				</label>
+				<br/><br/>
+
+				<label>Unidades del lote:
+					<input type="range" id="unidadesTarta" min="0" max="20" step="1" value="0">
+					<span id="valorRange">0</span> tarta(s)
+				</label>
+				<br/><br/>
+
+				<label>Porciones por unidad
+					<select id="porciones">
+						<option>Seleccionar</option>
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
+						<option>8</option>
+					</select>
+				</label>
+				<br/><br/>				
+
+				<label>Calidad
+					<input type="radio" name="calidad" value="1">1
+					<input type="radio" name="calidad" value="2">2
+					<input type="radio" name="calidad" value="3">3
+					<input type="radio" name="calidad" value="4">4
+					<input type="radio" name="calidad" value="5">5
+				</label>
+				<br/><br/>
+
+				<label>Precio total lote
+					<input type="text" id="precio" placeholder="528.50">
+				</label>
+			</fieldset>
+
+			<div id="errores"></div>
+			
+			<!--<input type="submit" value="Registrar">-->
+		</form>		
+
+		<button value="enviar" class="botonenviar" onclick="validarFormularioCompra()">REGISTRAR COMPRA</button>
+
+		<script src="../js/scripts.js"></script>
+		
+	</body>
+</html>

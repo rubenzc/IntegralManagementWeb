@@ -1,0 +1,28 @@
+﻿<html lang="es">
+       <head>
+
+              <meta charset="UTF-8">
+              <title>Informe stock</title>
+              <meta name="viewport" content="width=device-width,initial-scale=1.0">
+              <link rel="stylesheet" type="text/css" href="../css/style.css">
+              <style>
+
+              .registro[data-ocultofecha=true], .registro[data-ocultoid=true]{
+                     display: none;
+              }
+              
+              </style>
+
+       </head>
+       <body class="ventanaAuxiliar">
+              <h2>Informe de stock</h2>
+              <p style="margin-left: 20px;">
+                     Nombre: <input id="filtronombre" onkeyup="filtrar()">  Fecha mínima: <input id="caducidad" onkeyup="filtrar()">
+              </p>
+              <div id="contenidoInforme">ESPACIO PARA EL INFORME...</div>
+              <script src="../js/scripts.js"></script>
+       </body>
+
+
+       </body>
+</html>

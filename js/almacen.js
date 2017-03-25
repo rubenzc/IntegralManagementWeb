@@ -1,0 +1,1 @@
+var almacen = new Array();

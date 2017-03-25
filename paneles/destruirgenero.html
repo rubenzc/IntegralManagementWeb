@@ -1,0 +1,47 @@
+﻿<html lang="es">
+       <head>
+
+              <meta charset="UTF-8">
+              <title>Destrucción de género</title>
+              <meta name="viewport" content="width=device-width,initial-scale=1.0">
+              <link rel="stylesheet" type="text/css" href="../css/style.css">
+
+       </head>
+       <body class="ventanaAuxiliar">
+
+              <form action="gestordedatos.php" method="POST" onsubmit="return validarFormularioDestruccion();">
+                     <fieldset>
+                            <legend>Destrucción de género</legend>
+                            <br/>
+                            <label>Identificador del lote
+                                   <input type="text" id="lote">
+                            </label>                         
+                            <br/><br/>
+                            <label>Destruir lote completo
+                                   <input type="checkbox" id="lotecompleto">
+                            </label>                         
+                            <br/><br/>
+                            <label id="unidadesC">Unidades a destruir
+                                   <input type="text" id="unidades">
+                            </label>                         
+                            <br/><br/>                            
+                            <label>Coste de la destrucción
+                                   <input type="text" id="coste">
+                            </label>
+                     </fieldset>
+                     
+                     <!-- <input type="submit" value="Enviar"> -->
+              </form>
+
+              <div id="mensajes"></div>
+
+              <button value="enviar" class="botonenviar" onclick="validarFormularioDestruccion()">REGISTRAR DESTRUCCIÓN</button>
+              
+
+
+       <script src="../js/scripts.js"></script>
+       </body>
+
+
+       </body>
+</html>

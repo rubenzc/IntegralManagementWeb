@@ -1,0 +1,41 @@
+﻿<html lang="es">
+       <head>
+
+              <meta charset="UTF-8">
+              <title>Venta Tartas</title>
+              <meta name="viewport" content="width=device-width,initial-scale=1.0">
+              <link rel="stylesheet" type="text/css" href="../css/style.css">
+
+       </head>
+       <body class="ventanaAuxiliar">
+
+              <form action="gestordedatos.php" method="POST" onsubmit="return validarFormularioVenta();">
+                     <fieldset>
+                            <legend>Venta unitaria</legend>
+                            <br/>
+                            <label>Identificador de lote
+                                   <input type="text" id="lote">
+                            </label>                         
+                            <br/><br/>
+                            <label>Cantidad de unidades vendidas
+                                   <input type="text" id="unidades">
+                            </label>                         
+                            <br/><br/>
+                            <label>Precio final de la venta
+                                   <input type="text" name="precio" id="precioFinal">
+                            </label>
+                     </fieldset>
+                     
+                     <!-- <input type="submit" value="Enviar"> -->
+              </form>
+
+              <div id="mensajes"></div>
+
+              <button value="enviar" class="botonenviar" onclick="validarFormularioVenta()">REGISTRAR VENTA</button>
+
+       <script src="../js/scripts.js"></script>
+       </body>
+
+
+       </body>
+</html>
