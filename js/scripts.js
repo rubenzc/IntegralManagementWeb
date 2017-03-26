@@ -52,31 +52,16 @@ if (document.getElementsByClassName("panelGeneral").length > 0){
 
     }
 
-    var cuentaContable = false;
-    var saldoTotal = 0;
-    document.getElementById('verSaldo').onclick = function(){
 
-
-        if (cuentaContable === false){
-
-            cuentaContable = true;
-            var saldoInicial = prompt("Con cuánto dinerito deseas empezar el día");
-            var cuenta = new Cuenta();
-            var batman = cuenta.setSaldoInicial(saldoInicial);
-
-            saldoTotal = cuenta.getSaldo();
-            alert("Su saldo inicial ha sido guardado");
-            alert("Saldo actual: " + saldoTotal);
-
-            
-        
-        }else{
-
-            alert("Saldo actual: " + saldoTotal);
-
-        }
-
+    document.getElementById('crearContabilidad').onclick = function(){
+        crearCuenta();
     }
+
+    document.getElementById('verSaldo').onclick = function(){
+        var saldo = cuentaContable.getSaldo();
+        alert(saldo);
+    }
+
 
     document.getElementById('informeVisual').onclick = function (){ 
 
@@ -97,13 +82,13 @@ if (document.getElementsByClassName("panelGeneral").length > 0){
             lote2.constructorLote("0001AA", "Hojaldre", "Individual" , "Delichoco", new Date(2017,10,20), 8, 15, 3, 210);
 
             var lote3 = new Lote();
-            lote3.constructorLote("0002AA", "Crocanti", "Familiar" , "Piña colada", new Date(2018,0,11), 7, 18, 3, 118);
+            lote3.constructorLote("0002AA", "Crocanti", "Familiar" , "Piña colada", new Date(2018,1,11), 7, 18, 3, 118);
 
             var lote4 = new Lote();
             lote4.constructorLote("0003AA", "Sacher", "Individual" , "Oreo Cake", new Date(2018,2,1), 5, 12, 5, 850);
 
             var lote5 = new Lote();
-            lote5.constructorLote("0004AA", "Queso", "Multipiso (3 pisos)" , "Mandarina primavera", new Date(2017,12,22), 8, 16, 5, 954.5);
+            lote5.constructorLote("0004AA", "Queso", "Multipiso (3 pisos)" , "Mandarina primavera", new Date(2017,11,22), 8, 16, 5, 954.5);
 
             var lote6 = new Lote();
             lote6.constructorLote("0005AA", "Sacher", "Temática" , "Selva cuatro sabores", new Date(2018,10,19), 4, 11, 5, 450);
@@ -140,7 +125,29 @@ if (document.getElementsByClassName('ventanaAuxiliar').length > 0) {
 /*----------------------------------------------------------------
 ----------------------VALIDACIÓN FORMULARIOS----------------------
 ----------------------------------------------------------------*/
+// var cuentaContable = false;
+// var saldoTotal = 0;
 
+// function crearCuenta(){
+
+//     if (!cuentaContable){
+
+//         var saldoInicial = prompt("Con cuánto dinerito deseas empezar el día");
+        
+//         var batman = cuentaContable.setSaldoInicial(saldoInicial);
+
+//         saldoTotal = cuentaContable.getSaldo();
+//         alert("Su saldo inicial ha sido guardado");
+//         alert("Saldo actual: " + saldoTotal);  
+
+//     }else{
+
+//         //saldoTotal = cuenta.getSaldo();
+//         alert("Ya sea ha creado una cuenta con una cantidad inicial");
+
+//     // }
+//     }
+// }
 
 
 
@@ -148,11 +155,11 @@ function validarFormularioVenta(){
 
     var lote = document.getElementById('lote').value;
     var unidades = document.getElementById('unidades').value;
+    var precio = document.getElementById('precioFinal').value;
 
     var objLote = opener.existeLote(lote);
 
     if (objLote) {
-
 
         var unidadesActuales = objLote.getUnidades();
 
@@ -162,6 +169,9 @@ function validarFormularioVenta(){
             objLote.setUnidades(unidadesRestantes);    
         
             opener.actualizaStock();
+
+            var ingresoVenta = cuentaContable.setIngreso(precio);
+            
             document.getElementById('mensajes').innerHTML = "Se han restado " + unidades + " al lote " + lote + " (" + unidadesRestantes + " uds. restantes)";        
 
         }else{
@@ -352,6 +362,8 @@ function validarFormularioCompra() {
 
                 opener.actualizaStock();
 
+                //var gastoCompra = cuentaContable.setGasto(precio);
+                
 
                 /*
                 alert("Esto sale de la instancia: " + nuevoLote.getId() );
@@ -377,6 +389,7 @@ function validarFormularioDestruccion(){
 
     var lote = document.getElementById('lote').value;
     var completo = document.getElementById('lotecompleto');
+    var coste = document.getElementById('coste').value;
     alert(opener.almacen.length);
     var objLote = opener.existeLote(lote);
 
@@ -391,6 +404,8 @@ function validarFormularioDestruccion(){
             }
 
         }
+
+    //var gastoDestruccion = cuenta.setGasto(coste);
             
     }else{
 
@@ -611,10 +626,15 @@ function Lote() {
 
         //Cáculo del resultado de la venta estimada
         var unidades = this._unidades;
-        var objFecha = this._fecha;
         var calidad = this._calidad;
         var precio = this._precio;
         
+        var monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        var objFecha = this._fecha;
+        var date = objFecha.getDate();
+        var month = objFecha.getMonth()-1;
+        var year = objFecha.getFullYear();
+        var printDate = date + " de " + monthNames[month] + " de " + year;
 
         var precioUd = (precio / unidades) * 1.25;
         if (calidad > 2) {
@@ -633,7 +653,7 @@ function Lote() {
         var result= '';
 
         result += "<strong>Lote con ID " + this._id + "</strong> " + "(" + this._tipo + ", " + this._clase + " , modelo: " + this._modelo + ")<br>" 
-        result += "Fecha de caducidad: " + this._fecha + "<br>";
+        result += "Fecha de caducidad: " + printDate + "<br>";
         result += "Unidades restantes: " + this._unidades + " de " + this._porciones + " porciones por unidad" + "<br>";
         result += "Precio pagado por el lote: " + this._precio + " euros " + "(Venta estimada en " + resultado.toFixed(2) + " euros) <br><br>"
         
@@ -642,6 +662,8 @@ function Lote() {
 
 }
 
+// var d = new Date();
+// document.write("The current month is " + monthNames[d.getMonth()]);
 /*----------------------------------------------------------------
 ---------------------LISTAR STOCK---------------------------------
 ----------------------------------------------------------------*/
