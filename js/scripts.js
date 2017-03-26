@@ -125,29 +125,28 @@ if (document.getElementsByClassName('ventanaAuxiliar').length > 0) {
 /*----------------------------------------------------------------
 ----------------------VALIDACIÓN FORMULARIOS----------------------
 ----------------------------------------------------------------*/
-// var cuentaContable = false;
-// var saldoTotal = 0;
+var cuentaContable = false;
+var saldoTotal = 0;
 
-// function crearCuenta(){
+function crearCuenta(){
 
-//     if (!cuentaContable){
+    if (cuentaContable === false){
 
-//         var saldoInicial = prompt("Con cuánto dinerito deseas empezar el día");
+        var saldoInicial = prompt("Con cuánto dinerito deseas empezar el día");
         
-//         var batman = cuentaContable.setSaldoInicial(saldoInicial);
+        cuentaContable = new Cuenta();
+        var batman = cuentaContable.setSaldoInicial(saldoInicial);
 
-//         saldoTotal = cuentaContable.getSaldo();
-//         alert("Su saldo inicial ha sido guardado");
-//         alert("Saldo actual: " + saldoTotal);  
+        saldoTotal = cuentaContable.getSaldo();
+        alert("Su saldo inicial ha sido guardado");
+        alert("Saldo actual: " + saldoTotal);  
 
-//     }else{
+    }else{
 
-//         //saldoTotal = cuenta.getSaldo();
-//         alert("Ya sea ha creado una cuenta con una cantidad inicial");
+        alert("Ya sea ha creado una cuenta con una cantidad inicial");
 
-//     // }
-//     }
-// }
+    }
+}
 
 
 
@@ -170,7 +169,7 @@ function validarFormularioVenta(){
         
             opener.actualizaStock();
 
-            var ingresoVenta = cuentaContable.setIngreso(precio);
+            //cuentaContable.setIngreso(precio);
             
             document.getElementById('mensajes').innerHTML = "Se han restado " + unidades + " al lote " + lote + " (" + unidadesRestantes + " uds. restantes)";        
 
@@ -362,7 +361,7 @@ function validarFormularioCompra() {
 
                 opener.actualizaStock();
 
-                //var gastoCompra = cuentaContable.setGasto(precio);
+                //cuentaContable.setGasto(precio);
                 
 
                 /*
@@ -390,7 +389,7 @@ function validarFormularioDestruccion(){
     var lote = document.getElementById('lote').value;
     var completo = document.getElementById('lotecompleto');
     var coste = document.getElementById('coste').value;
-    alert(opener.almacen.length);
+    //alert(opener.almacen.length);
     var objLote = opener.existeLote(lote);
 
     if (objLote && (completo.checked = true)){
@@ -400,12 +399,13 @@ function validarFormularioDestruccion(){
             if (opener.almacen[i].getId() === lote){
                 opener.almacen.splice(i,1);
                 i--;
-                alert(opener.almacen.length);
+                //alert(opener.almacen.length);
             }
 
         }
 
-    //var gastoDestruccion = cuenta.setGasto(coste);
+    //cuentaContable.setGasto(coste);
+    document.getElementById('mensajes').innerHTML = "El lote ha sido destruido correctamente";
             
     }else{
 
