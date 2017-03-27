@@ -169,7 +169,7 @@ function validarFormularioVenta(){
         
             opener.actualizaStock();
 
-            //cuentaContable.setIngreso(precio);
+            opener.cuentaContable.setIngreso(precio);
             
             document.getElementById('mensajes').innerHTML = "Se han restado " + unidades + " al lote " + lote + " (" + unidadesRestantes + " uds. restantes)";        
 
@@ -361,7 +361,7 @@ function validarFormularioCompra() {
 
                 opener.actualizaStock();
 
-                //cuentaContable.setGasto(precio);
+                opener.cuentaContable.setGasto(precio);
                 
 
                 /*
@@ -404,7 +404,7 @@ function validarFormularioDestruccion(){
 
         }
 
-    //cuentaContable.setGasto(coste);
+    opener.cuentaContable.setGasto(coste);
     document.getElementById('mensajes').innerHTML = "El lote ha sido destruido correctamente";
             
     }else{
