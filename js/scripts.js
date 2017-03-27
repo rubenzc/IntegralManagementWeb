@@ -46,12 +46,21 @@ if (document.getElementsByClassName("panelGeneral").length > 0){
             }
     }
 
+    /*document.getElementById('verCuentas').onclick = function(){
+
+        var ventanaContabilidad =  window.open('paneles/informecontable.html', 'Informe contable', 'scrollbars=yes,width=600,height=820,toolbar=yes');
+
+        ventanaContabilidad.document.getElementById('contenidoInforme').innerHTML = "Los ingresos generados hasta ahora son: " + ingresosTotales;
+        ventanaContabilidad.document.getElementById('contenidoInforme').innerHTML = "Los gastos creados hasta ahora son: " + gastosTotales;
+
+    }
+    */
+
     document.getElementById('destruirGenero').onclick = function (){
 
         var ventanaDestruir = window.open('paneles/destruirgenero.html', 'Destruir género', 'scrollbars=yes,width=600,height=820,toolbar=yes');
 
     }
-
 
     document.getElementById('crearContabilidad').onclick = function(){
         crearCuenta();
@@ -59,9 +68,8 @@ if (document.getElementsByClassName("panelGeneral").length > 0){
 
     document.getElementById('verSaldo').onclick = function(){
         var saldo = cuentaContable.getSaldo();
-        alert(saldo);
+        alert("Tu saldo actual es: " + saldo);
     }
-
 
     document.getElementById('informeVisual').onclick = function (){ 
 
@@ -76,22 +84,22 @@ if (document.getElementsByClassName("panelGeneral").length > 0){
             contenidoCargado = true;
 
             var lote1 = new Lote();
-            lote1.constructorLote("0000AA", "Sacher", "Multipiso (2 pisos)" , "Fantasía caribeña", new Date(2017,11,20), 5, 12, 4, 450);
+            lote1.constructorLote("0000AA", 2, 3, "Fantasía caribeña", new Date(2017,11,20), 5, 12, 4, 450);
 
             var lote2 = new Lote();
-            lote2.constructorLote("0001AA", "Hojaldre", "Individual" , "Delichoco", new Date(2017,10,20), 8, 15, 3, 210);
+            lote2.constructorLote("0001AA", 1, 1 , "Delichoco", new Date(2017,10,20), 8, 15, 3, 210);
 
             var lote3 = new Lote();
-            lote3.constructorLote("0002AA", "Crocanti", "Familiar" , "Piña colada", new Date(2018,1,11), 7, 18, 3, 118);
+            lote3.constructorLote("0002AA", 3, 2 , "Piña colada", new Date(2018,1,11), 7, 18, 3, 118);
 
             var lote4 = new Lote();
-            lote4.constructorLote("0003AA", "Sacher", "Individual" , "Oreo Cake", new Date(2018,2,1), 5, 12, 5, 850);
+            lote4.constructorLote("0003AA", 2, 1 , "Oreo Cake", new Date(2018,2,1), 5, 12, 5, 850);
 
             var lote5 = new Lote();
-            lote5.constructorLote("0004AA", "Queso", "Multipiso (3 pisos)" , "Mandarina primavera", new Date(2017,11,22), 8, 16, 5, 954.5);
+            lote5.constructorLote("0004AA", 4, 3, "Mandarina primavera", new Date(2017,11,22), 8, 16, 5, 954.5);
 
             var lote6 = new Lote();
-            lote6.constructorLote("0005AA", "Sacher", "Temática" , "Selva cuatro sabores", new Date(2018,10,19), 4, 11, 5, 450);
+            lote6.constructorLote("0005AA", 1, 4 , "Selva cuatro sabores", new Date(2018,10,19), 4, 11, 5, 450);
 
             almacen.push(lote1,lote2,lote3,lote4,lote5,lote6);
 
@@ -123,10 +131,14 @@ if (document.getElementsByClassName('ventanaAuxiliar').length > 0) {
 }
 
 /*----------------------------------------------------------------
-----------------------VALIDACIÓN FORMULARIOS----------------------
+----------------------CREACIÓN NUEVA CUENTA-----------------------
 ----------------------------------------------------------------*/
+
 var cuentaContable = false;
 var saldoTotal = 0;
+
+//var ingresosTotales = 0;
+//var gastosTotales = 0;
 
 function crearCuenta(){
 
@@ -139,16 +151,18 @@ function crearCuenta(){
 
         saldoTotal = cuentaContable.getSaldo();
         alert("Su saldo inicial ha sido guardado");
-        alert("Saldo actual: " + saldoTotal);  
 
     }else{
 
-        alert("Ya sea ha creado una cuenta con una cantidad inicial");
+        alert("Ya sea ha creado una cuenta con una cantidad inicial. \n Puedes consultar tu saldo en el botón Ver saldo");
 
     }
 }
 
 
+/*----------------------------------------------------------------
+----------------------VALIDACIÓN FORMULARIOS----------------------
+----------------------------------------------------------------*/
 
 function validarFormularioVenta(){
 
@@ -170,6 +184,7 @@ function validarFormularioVenta(){
             opener.actualizaStock();
 
             opener.cuentaContable.setIngreso(precio);
+            //ingresosTotales += precio;
             
             document.getElementById('mensajes').innerHTML = "Se han restado " + unidades + " al lote " + lote + " (" + unidadesRestantes + " uds. restantes)";        
 
@@ -362,6 +377,8 @@ function validarFormularioCompra() {
                 opener.actualizaStock();
 
                 opener.cuentaContable.setGasto(precio);
+
+                //gastosTotales += precio;
                 
 
                 /*
@@ -405,6 +422,8 @@ function validarFormularioDestruccion(){
         }
 
     opener.cuentaContable.setGasto(coste);
+    //gastosTotales += coste;
+
     document.getElementById('mensajes').innerHTML = "El lote ha sido destruido correctamente";
             
     }else{
@@ -419,7 +438,7 @@ function validarFormularioDestruccion(){
 -------------------------FUNCIONALIDADES--------------------------
 ----------------------------------------------------------------*/
 
-//HABILITACIÓN EN DESTRUCCIÓN DE LOTE DE CAMPO NÚYMERO TARTAS
+//HABILITACIÓN EN DESTRUCCIÓN DE LOTE DE CAMPO NÚMERO TARTAS
 if (document.getElementById('lotecompleto')) {
 
     document.getElementById('lotecompleto').onchange = function(){
@@ -429,7 +448,7 @@ if (document.getElementById('lotecompleto')) {
 }
 
 
-// NUMERACION CANTIDAD DE TARTAS A TIEMPO REAL
+// NUMERACIÓN CANTIDAD DE TARTAS A TIEMPO REAL
 if (document.getElementById('unidadesTarta')) {
 
     document.getElementById('unidadesTarta').onchange = function(){
@@ -467,7 +486,7 @@ if (document.getElementsByClassName('ventanaAuxiliar').length > 0) {
     }
 }
 
-//FECHA Y HORA ACTUALIZADA
+//FECHA Y HORA ACTUALIZADA EN TIEMPO REAL
     function mostrarFechaHora(){
 
         var hoy = new Date();
@@ -629,6 +648,7 @@ function Lote() {
         var calidad = this._calidad;
         var precio = this._precio;
         
+        //Asignación del mes correspondiente en español
         var monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
         var objFecha = this._fecha;
         var date = objFecha.getDate();
@@ -636,10 +656,13 @@ function Lote() {
         var year = objFecha.getFullYear();
         var printDate = date + " de " + monthNames[month] + " de " + year;
 
+        //Cálculo de Bº y descuentos para la estimación de la venta
         var precioUd = (precio / unidades) * 1.25;
         if (calidad > 2) {
             precioUd = precioUd * 1.10;
         }
+
+        //Cálculo para fecha de caducidad
         var objFechaActual = new Date();
         var mesFuturo = objFechaActual.getMonth() + 1;
         var objFechaFutura = new Date(objFechaActual.setMonth(mesFuturo));
@@ -648,13 +671,21 @@ function Lote() {
             precioUd = precioUd * 0.8;
         }
         var resultado = unidades * precioUd;
+
+        //Asignación de tipo de tarta a la posición del array recibida
+        var tipoTarta = ['Hojaldre','Sacher','Crocanti','Queso'];
+        var claseTarta = ['Individual','Familiar','Multipiso (2 pisos)','Multipiso (3 pisos)','Temática'];
+        var tipo = tipoTarta[(this._tipo)-1];
+        var clase = claseTarta[(this._clase)-1];
+
+
         /////////////////////
 
         var result= '';
 
-        result += "<strong>Lote con ID " + this._id + "</strong> " + "(" + this._tipo + ", " + this._clase + " , modelo: " + this._modelo + ")<br>" 
+        result += "<strong>Lote con ID " + this._id + "</strong> " + "(" + tipo + ", " + clase + " , modelo: " + this._modelo + ")<br>" 
         result += "Fecha de caducidad: " + printDate + "<br>";
-        result += "Unidades restantes: " + this._unidades + " de " + this._porciones + " porciones por unidad" + "<br>";
+        result += "Unidades restantes: " + this._unidades + " unidades de " + this._porciones + " porciones por unidad" + "<br>";
         result += "Precio pagado por el lote: " + this._precio + " euros " + "(Venta estimada en " + resultado.toFixed(2) + " euros) <br><br>"
         
         return result;
@@ -662,25 +693,15 @@ function Lote() {
 
 }
 
-// var d = new Date();
-// document.write("The current month is " + monthNames[d.getMonth()]);
-/*----------------------------------------------------------------
----------------------LISTAR STOCK---------------------------------
-----------------------------------------------------------------*/
-
-    
-
-/////////////////////////////////////////////////////////////////
-
 
 function Cuenta(){
     var _saldo = 0;
 
-    //ESTOS CUATRO SON MÉTODOS DENTRO DEL CONSTRUCTOR CUENTA
+    //Abajo están los cuatro métodos del constructor Cuenta
     
-    //Necesita un argumneto para ver el saldo inicial, por ello es un set
+    //Necesita un argumento para ver el saldo inicial, por ello es un set
     this.setSaldoInicial = function(arg){
-        //Cada vez que invoque este método le paso el saldo inicial con el que partimos
+        //Cada vez que invoque este método le paso el saldo inicial con el que partimos en ese momento
         this._saldo = Number(arg);
     }
 
@@ -701,6 +722,5 @@ function Cuenta(){
 
         return this._saldo;
     }
-
 
 }
